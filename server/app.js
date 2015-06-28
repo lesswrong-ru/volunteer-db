@@ -1,7 +1,7 @@
 import express from 'express';
 import React from 'react';
 
-import Page from '../common/page';
+import Page from '../common/components/page';
 
 require("source-map-support").install(); // used by webpack-generated code
 

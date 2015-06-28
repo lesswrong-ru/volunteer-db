@@ -1,0 +1,19 @@
+:local(.outer) {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+:local(.grow) {
+    flex-grow: 1;
+}
+
+:local(.inner) {
+    margin: 0 auto;
+    max-width: 550px;
+}
+:local(.wide) {
+    max-width: 900px;
+}
+

@@ -1,12 +1,10 @@
-let React = require('react');
+import React from 'react';
+import BigSection from './BigSection';
+import HeroForm from './HeroForm';
+import {ReasonsList, Reason} from './reasons';
 
-require('../style/main.scss');
-
-let HeroHeader = React.createClass({
-  render () {
-    return <header className='hero-header'>{this.props.children}</header>
-  },
-});
+require('../../style/main.scss');
+import styles from './main.scss';
 
 let Continue = React.createClass({
   scrollDown () {
@@ -24,92 +22,76 @@ let Continue = React.createClass({
   },
 });
 
-let BigHeader = React.createClass({
+let Header = React.createClass({
+  propTypes: {
+    size: React.PropTypes.oneOf(['hero']),
+  },
+
+  cx () {
+    if (this.props.size == 'hero') {
+      return styles.HeroHeader;
+    }
+    else {
+      return styles.Header;
+    }
+  },
+
   render () {
-    return <header className='big-header'>{this.props.children}</header>
+    return (
+      <header className={this.cx()}>
+        {this.props.children}
+      </header>
+    );
   },
 });
 
-let BigSection = React.createClass({
-  propTypes: {
-    type: React.PropTypes.string,
-  },
-
+let BigFooter = React.createClass({
   render () {
-    let outerCx = 'big-section-outer';
-    let cx = 'big-section';
-    if (this.props.type) {
-      outerCx += ` big-section-outer--${this.props.type}`;
-      cx += ` big-section--${this.props.type}`;
-    }
     return (
-      <div className={outerCx}>
-        <section className={cx}>
-          {this.props.children}
-        </section>
+      <footer className={styles.BigFooter}>
+        <a href='http://lesswrong.ru'>© Команда LessWrong.ru</a>
+      </footer>
+    );
+  },
+});
+
+let FirstScreen = React.createClass({
+  render () {
+    return (
+      <div className={styles.FirstScreen}>
+        <BigSection wide={true} color='grey' grow={1}>
+          <Header size='hero'>Открытое объединение волонтеров</Header>
+        </BigSection>
+
+        <BigSection color='green' grow={1}>
+          <Header>Хочешь помочь науке? Стань волонтером!</Header>
+          <p>
+          Ты готов отдать свои тело и разум на службу науке, во имя истины и блага человечества?
+          Запишись в Открытое Объединение Волонтеров.
+          </p>
+          <p>
+          Мы помогаем исследователям и испытуемым найти друг друга и внести совместный вклад в умножение знания.
+          </p>
+        </BigSection>
+
+        <BigSection color='grey' grow={1}>
+          <HeroForm/>
+        </BigSection>
+
+        <BigSection color='grey'>
+          <Continue />
+        </BigSection>
       </div>
     );
   },
 });
 
-let Reason = React.createClass({
-  propTypes: {
-    text: React.PropTypes.string.isRequired,
-    details: React.PropTypes.string.isRequired,
-  },
-
-  render () {
-    return (
-      <li>
-        {this.props.text}
-        <small className='reason-details'>{this.props.details}</small>
-      </li>
-    );
-  },
-});
-
-let ReasonsList = React.createClass({
-  render () {
-    return (
-      <ol className='reasons-list'>
-        {this.props.children}
-      </ol>
-    );
-  },
-});
-
-export default React.createClass({
+let ReasonsScreen = React.createClass({
   render () {
     return (
       <div>
-        <div className='hero-group'>
-          <BigSection type='hero'>
-            <HeroHeader>Открытое объединение волонтеров</HeroHeader>
-          </BigSection>
-
-          <BigSection>
-            <BigHeader>Хочешь помочь науке? Стань волонтером!</BigHeader>
-            <p>
-            Ты готов отдать свои тело и разум на службу науке, во имя истины и блага человечества?
-            Запишись в Открытое Объединение Волонтеров.
-            </p>
-            <p>
-            Мы помогаем исследователям и испытуемым найти друг друга и внести совместный вклад в умножение знания.
-            </p>
-          </BigSection>
-
-          <BigSection type='input'>
-            <div className="hero-form">
-              <input className="hero-form__input" placeholder="Введите e-mail"/>
-              <button className="hero-form__button">Да, возьмите меня на опыты!</button>
-            </div>
-          </BigSection>
-
-          <Continue />
-        </div>
-
-        <BigSection type='text'>
-          <BigHeader>Для чего это тебе?</BigHeader>
+        <BigSection>
+          <Header>Для чего это тебе?</Header>
           <ReasonsList>
             <Reason
               text='Ты внесешь вклад в мировую науку'
@@ -126,8 +108,8 @@ export default React.createClass({
           </ReasonsList>
         </BigSection>
 
-        <BigSection type='text'>
-          <BigHeader>Для чего это нам?</BigHeader>
+        <BigSection>
+          <Header>Для чего это нам?</Header>
           <ReasonsList>
             <Reason
               text='Мы – некоммерческий проект, мы за науку'
@@ -144,8 +126,8 @@ export default React.createClass({
           </ReasonsList>
         </BigSection>
 
-        <BigSection type='text'>
-          <BigHeader>Для чего это исследователям?</BigHeader>
+        <BigSection>
+          <Header>Для чего это исследователям?</Header>
           <ReasonsList>
             <Reason
               text='Собрать людей для экспериментов'
@@ -161,10 +143,18 @@ export default React.createClass({
             />
           </ReasonsList>
         </BigSection>
+      </div>
+    );
+  },
+});
 
-        <footer className="big-footer">
-          <a href="http://lesswrong.ru">© Команда LessWrong.ru</a>
-        </footer>
+export default React.createClass({
+  render () {
+    return (
+      <div>
+        <FirstScreen />
+        <ReasonsScreen />
+        <BigFooter />
       </div>
     );
   },

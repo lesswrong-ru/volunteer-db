@@ -1,0 +1,32 @@
+:local(.main) {
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+:local(.input) {
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 55px;
+    border: 1px #ccc solid;
+    font-size: 30px;
+    margin-bottom: 5px;
+    flex: 1 1 auto;
+}
+
+:local(.button) {
+    border: 2px #393 solid;
+    background-color: #5a5;
+    font-size: 20px;
+    color: white;
+    height: 40px;
+    border-radius: 50px;
+    &:hover {
+        background-color: #585;
+        border-color: #353;
+    }
+}

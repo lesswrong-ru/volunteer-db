@@ -1,0 +1,13 @@
+:local(.ReasonsList) {
+    margin: 0;
+    padding: 0;
+}
+
+:local(.ReasonsList) > li {
+    margin-bottom: 10px;
+}
+
+:local(.ReasonDetails) {
+    display: block;
+    color: #999;
+}
